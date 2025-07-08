@@ -28,70 +28,102 @@ const InterviewCard = async ({
 
   const badgeColor =
     {
-      Behavioral: "bg-light-400",
-      Mixed: "bg-light-600",
-      Technical: "bg-light-800",
-    }[normalizedType] || "bg-light-600";
+      Behavioral: "bg-gradient-to-r from-blue-500 to-blue-600",
+      Mixed: "bg-gradient-to-r from-purple-500 to-purple-600",
+      Technical: "bg-gradient-to-r from-green-500 to-green-600",
+    }[normalizedType] || "bg-gradient-to-r from-gray-500 to-gray-600";
 
   const formattedDate = dayjs(
     feedback?.createdAt || createdAt || Date.now()
   ).format("MMM D, YYYY");
 
-  return (
-    <div className="card-border w-[360px] max-sm:w-full min-h-96">
-      <div className="card-interview">
-        <div>
-          {/* Type Badge */}
-          <div
-            className={cn(
-              "absolute top-0 right-0 w-fit px-4 py-2 rounded-bl-lg",
-              badgeColor
-            )}
-          >
-            <p className="badge-text ">{normalizedType}</p>
-          </div>
+  const isCompleted = !!feedback;
+  const score = feedback?.totalScore || 0;
 
-          {/* Cover Image */}
+  return (
+    <div className="interview-card-container">
+      <div className="interview-card">
+        {/* Type Badge */}
+        <div className={cn("interview-badge", badgeColor)}>
+          <span className="badge-text">{normalizedType}</span>
+        </div>
+
+        {/* Status Indicator */}
+        <div className="status-indicator">
+          {isCompleted ? (
+            <div className="status-completed">
+              <span className="status-icon">✓</span>
+              <span className="status-text">Completed</span>
+            </div>
+          ) : (
+            <div className="status-pending">
+              <span className="status-icon">⏳</span>
+              <span className="status-text">Pending</span>
+            </div>
+          )}
+        </div>
+
+        {/* Cover Image */}
+        <div className="cover-image-container">
           <Image
             src={getRandomInterviewCover()}
-            alt="cover-image"
+            alt="Interview Cover"
             width={90}
             height={90}
-            className="rounded-full object-fit size-[90px]"
+            className="cover-image"
           />
+        </div>
 
-          {/* Interview Role */}
-          <h3 className="mt-5 capitalize">{role} Interview</h3>
+        {/* Interview Info */}
+        <div className="interview-info">
+          <h3 className="interview-title">{role} Interview</h3>
 
-          {/* Date & Score */}
-          <div className="flex flex-row gap-5 mt-3">
-            <div className="flex flex-row gap-2">
+          <div className="interview-meta">
+            <div className="meta-item">
               <Image
                 src="/calendar.svg"
-                width={22}
-                height={22}
-                alt="calendar"
+                width={18}
+                height={18}
+                alt="Calendar"
               />
-              <p>{formattedDate}</p>
+              <span>{formattedDate}</span>
             </div>
 
-            <div className="flex flex-row gap-2 items-center">
-              <Image src="/star.svg" width={22} height={22} alt="star" />
-              <p>{feedback?.totalScore || "---"}/100</p>
+            <div className="meta-item">
+              <Image src="/star.svg" width={18} height={18} alt="Score" />
+              <span
+                className={cn(
+                  "score",
+                  score >= 70
+                    ? "text-green-400"
+                    : score >= 50
+                    ? "text-yellow-400"
+                    : "text-red-400"
+                )}
+              >
+                {score || "---"}/100
+              </span>
             </div>
           </div>
 
-          {/* Feedback or Placeholder Text */}
-          <p className="line-clamp-2 mt-5">
+          <p className="interview-description">
             {feedback?.finalAssessment ||
-              "You haven't taken this interview yet. Take it now to improve your skills."}
+              "Ready to tackle this interview challenge? Let's get started and see how you perform!"}
           </p>
         </div>
 
-        <div className="flex flex-row justify-between">
-          <DisplayTechIcons techStack={techstack} />
+        {/* Bottom Section */}
+        <div className="card-bottom">
+          <div className="tech-stack">
+            <DisplayTechIcons techStack={techstack} />
+          </div>
 
-          <Button className="btn-primary">
+          <Button
+            className={cn(
+              "card-button",
+              isCompleted ? "btn-secondary" : "btn-primary"
+            )}
+          >
             <Link
               href={
                 feedback
@@ -99,7 +131,7 @@ const InterviewCard = async ({
                   : `/interview/${interviewId}`
               }
             >
-              {feedback ? "Check Feedback" : "View Interview"}
+              {feedback ? "View Feedback" : "Start Interview"}
             </Link>
           </Button>
         </div>

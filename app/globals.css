@@ -181,6 +181,10 @@
     @apply w-fit !bg-dark-200 !text-primary-200 hover:!bg-dark-200/80 !rounded-full !font-bold px-5 cursor-pointer min-h-10;
   }
 
+  .btn-primary-large {
+    @apply !bg-primary-200 !text-dark-100 hover:!bg-primary-200/80 !rounded-full !font-bold px-8 py-3 cursor-pointer min-h-12 text-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl;
+  }
+
   .btn-upload {
     @apply bg-dark-200 rounded-full min-h-12 px-5 cursor-pointer border border-input  overflow-hidden;
   }
@@ -286,11 +290,266 @@
   }
 
   .card-interview {
-    @apply dark-gradient rounded-2xl min-h-full flex flex-col p-6 relative overflow-hidden gap-10 justify-between;
+    @apply dark-gradient rounded-2xl min-h-full flex flex-col p-6 relative overflow-hidden gap-10 justify-between transition-all duration-300 hover:scale-105 hover:shadow-2xl;
 
     .badge-text {
       @apply text-sm font-semibold capitalize;
     }
+  }
+
+  /* New Dashboard Styles */
+  .dashboard-container {
+    @apply flex flex-col gap-12 animate-fadeIn;
+  }
+
+  .welcome-section {
+    @apply mb-8;
+  }
+
+  .welcome-content {
+    @apply flex items-center justify-between bg-gradient-to-r from-primary-200/20 to-primary-200/10 rounded-2xl p-8 border border-primary-200/20;
+  }
+
+  .welcome-text {
+    @apply flex flex-col gap-4;
+  }
+
+  .welcome-title {
+    @apply text-4xl font-bold text-white max-sm:text-3xl;
+  }
+
+  .welcome-subtitle {
+    @apply text-xl text-light-100 max-sm:text-lg;
+  }
+
+  .welcome-avatar {
+    @apply max-sm:hidden;
+  }
+
+  .stats-section {
+    @apply mb-8;
+  }
+
+  .stats-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6;
+  }
+
+  .stat-card {
+    @apply bg-gradient-to-br from-dark-200 to-dark-300 rounded-xl p-6 border border-primary-200/20 flex items-center gap-4 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:border-primary-200/40;
+  }
+
+  .stat-icon {
+    @apply text-4xl;
+  }
+
+  .stat-content {
+    @apply flex flex-col;
+  }
+
+  .stat-number {
+    @apply text-3xl font-bold text-primary-200;
+  }
+
+  .stat-label {
+    @apply text-sm text-light-100 uppercase tracking-wide;
+  }
+
+  .hero-cta-section {
+    @apply mb-12;
+  }
+
+  .hero-content {
+    @apply flex items-center justify-between blue-gradient-dark rounded-3xl p-12 max-sm:p-6 max-sm:flex-col gap-8;
+  }
+
+  .hero-text {
+    @apply flex flex-col gap-6 max-w-2xl;
+  }
+
+  .hero-title {
+    @apply text-4xl font-bold text-white leading-tight max-sm:text-3xl;
+  }
+
+  .hero-subtitle {
+    @apply text-xl text-light-100 leading-relaxed max-sm:text-lg;
+  }
+
+  .hero-features {
+    @apply flex flex-wrap gap-4 max-sm:flex-col;
+  }
+
+  .feature-item {
+    @apply flex items-center gap-2 text-light-100 bg-dark-200/50 px-4 py-2 rounded-full;
+  }
+
+  .feature-icon {
+    @apply text-xl;
+  }
+
+  .hero-image {
+    @apply max-sm:order-first;
+  }
+
+  .hero-robot {
+    @apply transition-transform duration-300 hover:scale-110 max-sm:w-72 max-sm:h-72;
+  }
+
+  .interviews-section-container {
+    @apply mb-12;
+  }
+
+  .section-header {
+    @apply mb-8 text-center;
+  }
+
+  .section-title {
+    @apply text-3xl font-bold text-white mb-2;
+  }
+
+  .section-subtitle {
+    @apply text-lg text-light-100;
+  }
+
+  .interviews-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+  }
+
+  .empty-state {
+    @apply col-span-full flex flex-col items-center justify-center py-16 text-center;
+  }
+
+  .empty-icon {
+    @apply text-6xl mb-4;
+  }
+
+  .empty-title {
+    @apply text-2xl font-bold text-white mb-2;
+  }
+
+  .empty-subtitle {
+    @apply text-lg text-light-100 max-w-md;
+  }
+
+  /* Navigation Styles */
+  .navbar {
+    @apply flex items-center justify-between bg-gradient-to-r from-dark-200 to-dark-300 rounded-2xl p-4 mb-8 border border-primary-200/20;
+  }
+
+  .nav-left {
+    @apply flex items-center;
+  }
+
+  .nav-logo {
+    @apply flex items-center gap-2 transition-all duration-300 hover:scale-105;
+  }
+
+  .logo-text {
+    @apply text-primary-200 text-2xl font-bold;
+  }
+
+  .nav-right {
+    @apply flex items-center gap-6;
+  }
+
+  .nav-user {
+    @apply flex items-center gap-2 bg-dark-100/50 px-4 py-2 rounded-full;
+  }
+
+  .user-avatar {
+    @apply rounded-full border border-primary-200/50;
+  }
+
+  .user-name {
+    @apply text-primary-200 font-medium;
+  }
+
+  .nav-actions {
+    @apply flex items-center gap-2;
+  }
+
+  .nav-link {
+    @apply flex items-center gap-2 px-4 py-2 rounded-full bg-dark-100/30 text-light-100 hover:bg-primary-200/20 hover:text-primary-200 transition-all duration-300;
+  }
+
+  .nav-icon {
+    @apply text-lg;
+  }
+
+  /* Enhanced Interview Card Styles */
+  .interview-card-container {
+    @apply border-gradient p-0.5 rounded-2xl w-full h-full;
+  }
+
+  .interview-card {
+    @apply dark-gradient rounded-2xl min-h-full flex flex-col p-6 relative overflow-hidden gap-4 justify-between transition-all duration-300 hover:scale-105 hover:shadow-2xl;
+  }
+
+  .interview-badge {
+    @apply absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold text-white shadow-lg;
+  }
+
+  .status-indicator {
+    @apply absolute top-4 left-4;
+  }
+
+  .status-completed {
+    @apply flex items-center gap-1 bg-green-500/20 text-green-400 px-2 py-1 rounded-full text-xs;
+  }
+
+  .status-pending {
+    @apply flex items-center gap-1 bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded-full text-xs;
+  }
+
+  .status-icon {
+    @apply text-xs;
+  }
+
+  .status-text {
+    @apply font-medium;
+  }
+
+  .cover-image-container {
+    @apply flex justify-center mt-6 mb-4;
+  }
+
+  .cover-image {
+    @apply rounded-full border-2 border-primary-200/30 object-cover shadow-lg;
+  }
+
+  .interview-info {
+    @apply flex flex-col gap-3 flex-1;
+  }
+
+  .interview-title {
+    @apply text-xl font-bold text-white capitalize text-center;
+  }
+
+  .interview-meta {
+    @apply flex justify-between items-center gap-4;
+  }
+
+  .meta-item {
+    @apply flex items-center gap-2 text-light-100 text-sm;
+  }
+
+  .score {
+    @apply font-bold;
+  }
+
+  .interview-description {
+    @apply text-sm text-light-100 line-clamp-3 leading-relaxed;
+  }
+
+  .card-bottom {
+    @apply flex items-center justify-between gap-4 mt-auto;
+  }
+
+  .tech-stack {
+    @apply flex-1;
+  }
+
+  .card-button {
+    @apply transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg;
   }
 }
 

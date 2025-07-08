@@ -21,33 +21,136 @@ async function Home() {
   const hasPastInterviews = userInterviews?.length! > 0;
   const hasUpcomingInterviews = allInterview?.length! > 0;
 
+  // Calculate stats
+  const totalInterviews = userInterviews?.length || 0;
+  const completedInterviews =
+    userInterviews?.filter((interview) => interview.feedback?.length > 0)
+      .length || 0;
+  const averageScore =
+    userInterviews?.reduce((acc, interview) => {
+      const feedback = interview.feedback?.[0];
+      return acc + (feedback?.totalScore || 0);
+    }, 0) / (completedInterviews || 1);
+
   return (
-    <>
-      <section className="card-cta">
-        <div className="flex flex-col gap-6 max-w-lg">
-          <h2>Get Interview-Ready with AI-Powered Practice & Feedback</h2>
-          <p className="text-lg">
-            Practice real interview questions & get instant feedback
-          </p>
-
-          <Button asChild className="btn-primary max-sm:w-full">
-            <Link href="/interview">Start an Interview</Link>
-          </Button>
+    <div className="dashboard-container">
+      {/* Welcome Section */}
+      <section className="welcome-section">
+        <div className="welcome-content">
+          <div className="welcome-text">
+            <h1 className="welcome-title">
+              Welcome back,{" "}
+              <span className="text-primary-200">{user?.name || "User"}</span>!
+              👋
+            </h1>
+            <p className="welcome-subtitle">
+              Ready to ace your next interview? Let's practice and improve
+              together.
+            </p>
+          </div>
+          <div className="welcome-avatar">
+            <Image
+              src="/user-avatar.png"
+              alt="User Avatar"
+              width={80}
+              height={80}
+              className="rounded-full border-2 border-primary-200"
+            />
+          </div>
         </div>
-
-        <Image
-          src="/robot.png"
-          alt="robo-dude"
-          width={400}
-          height={400}
-          className="max-sm:hidden"
-        />
       </section>
 
-      <section className="flex flex-col gap-6 mt-8">
-        <h2>Your Interviews</h2>
+      {/* Stats Section */}
+      <section className="stats-section">
+        <div className="stats-grid">
+          <div className="stat-card">
+            <div className="stat-icon">📊</div>
+            <div className="stat-content">
+              <h3 className="stat-number">{totalInterviews}</h3>
+              <p className="stat-label">Total Interviews</p>
+            </div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-icon">✅</div>
+            <div className="stat-content">
+              <h3 className="stat-number">{completedInterviews}</h3>
+              <p className="stat-label">Completed</p>
+            </div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-icon">🎯</div>
+            <div className="stat-content">
+              <h3 className="stat-number">{Math.round(averageScore || 0)}</h3>
+              <p className="stat-label">Average Score</p>
+            </div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-icon">🚀</div>
+            <div className="stat-content">
+              <h3 className="stat-number">
+                {hasUpcomingInterviews ? allInterview?.length : 0}
+              </h3>
+              <p className="stat-label">Available</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <div className="interviews-section">
+      {/* Hero CTA Section */}
+      <section className="hero-cta-section">
+        <div className="hero-content">
+          <div className="hero-text">
+            <h2 className="hero-title">
+              Get Interview-Ready with
+              <span className="text-primary-200"> AI-Powered</span> Practice
+            </h2>
+            <p className="hero-subtitle">
+              Practice real interview questions, get instant feedback, and boost
+              your confidence with our advanced AI interviewer.
+            </p>
+            <div className="hero-features">
+              <div className="feature-item">
+                <span className="feature-icon">🤖</span>
+                <span>AI-Powered Questions</span>
+              </div>
+              <div className="feature-item">
+                <span className="feature-icon">⚡</span>
+                <span>Instant Feedback</span>
+              </div>
+              <div className="feature-item">
+                <span className="feature-icon">📈</span>
+                <span>Track Progress</span>
+              </div>
+            </div>
+            <Button asChild className="btn-primary-large">
+              <Link href="/interview">
+                <span>Start an Interview</span>
+                <span className="ml-2">→</span>
+              </Link>
+            </Button>
+          </div>
+          <div className="hero-image">
+            <Image
+              src="/robot.png"
+              alt="AI Interview Assistant"
+              width={400}
+              height={400}
+              className="hero-robot"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Your Interviews Section */}
+      <section className="interviews-section-container">
+        <div className="section-header">
+          <h2 className="section-title">Your Interviews</h2>
+          <p className="section-subtitle">
+            Track your progress and review past performances
+          </p>
+        </div>
+
+        <div className="interviews-grid">
           {hasPastInterviews ? (
             userInterviews?.map((interview) => (
               <InterviewCard
@@ -61,15 +164,31 @@ async function Home() {
               />
             ))
           ) : (
-            <p>You haven&apos;t taken any interviews yet</p>
+            <div className="empty-state">
+              <div className="empty-icon">📝</div>
+              <h3 className="empty-title">No interviews yet</h3>
+              <p className="empty-subtitle">
+                You haven't taken any interviews yet. Start your first interview
+                to begin your journey!
+              </p>
+              <Button asChild className="btn-primary mt-4">
+                <Link href="/interview">Take Your First Interview</Link>
+              </Button>
+            </div>
           )}
         </div>
       </section>
 
-      <section className="flex flex-col gap-6 mt-8">
-        <h2>Take Interviews</h2>
+      {/* Available Interviews Section */}
+      <section className="interviews-section-container">
+        <div className="section-header">
+          <h2 className="section-title">Practice Interviews</h2>
+          <p className="section-subtitle">
+            Choose from our curated collection of interview questions
+          </p>
+        </div>
 
-        <div className="interviews-section">
+        <div className="interviews-grid">
           {hasUpcomingInterviews ? (
             allInterview?.map((interview) => (
               <InterviewCard
@@ -83,11 +202,18 @@ async function Home() {
               />
             ))
           ) : (
-            <p>There are no interviews available</p>
+            <div className="empty-state">
+              <div className="empty-icon">🎯</div>
+              <h3 className="empty-title">No interviews available</h3>
+              <p className="empty-subtitle">
+                There are no practice interviews available at the moment. Check
+                back later!
+              </p>
+            </div>
           )}
         </div>
       </section>
-    </>
+    </div>
   );
 }
 
